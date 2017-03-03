@@ -4,8 +4,10 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using HtmlAgilityPack;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace GetLink
 {
@@ -20,6 +22,15 @@ namespace GetLink
             InitializeComponent();
             MaximizeBox = false;
             lboxEpisodes.SelectionMode = SelectionMode.One;
+            this.GenerateColumnsListView();
+        }
+
+        private void GenerateColumnsListView()
+        {
+            lviewResults.Columns.Add("Title", 201);
+            lviewResults.Columns.Add("Episodes", 100);
+            lviewResults.Columns.Add("Slug", 0);
+//            lviewResults.Columns[2].Width = 0;
         }
 
         public void GetEpisodesId(string episodeId)
@@ -263,6 +274,37 @@ namespace GetLink
             catch (Exception ex)
             {
                 MessageBox.Show(@"Error: " + ex.Message + "\nPlease contact with admin", @"Error");
+            }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string keywords = txtSearchBox.Text.Trim();
+            if (keywords.Length > 0)
+            {
+                string searchAddress = "http://vuighe.net/tim-kiem/" + keywords + "";
+                HtmlWeb web = new HtmlWeb();
+                HtmlDocument document = web.Load(searchAddress);
+                HtmlNode[] items = document.DocumentNode.SelectNodes("//div[@class='tray-item ']").ToArray();
+//                HtmlNode[] insideItems = items.
+                int lengthNode = items.Length;
+                HtmlNode nodeSlug;
+                HtmlNode nodeTitle;
+                HtmlNode nodeEpisodes;
+                if (lengthNode > 10)
+                {
+                    lengthNode = 10;
+                }
+                for (int i = 0; i < lengthNode; i++)
+                {
+                    nodeSlug = items[i].SelectSingleNode(".//a");
+                    nodeTitle = items[i].SelectSingleNode(".//div[@class='tray-item-title']");
+                    nodeEpisodes = items[i].SelectSingleNode(".//div[@class='tray-film-update']");
+                    lviewResults.Items.Add(nodeTitle.InnerText.Trim(), nodeEpisodes.InnerText.Trim(),
+                        nodeSlug.Attributes["href"].Value.Trim());
+//                    MessageBox.Show("Title: " + nodeTitle.InnerText + "\nSlug " + nodeSlug.Attributes["href"].Value +
+//                                    "\nEpisodes: " + nodeEpisodes.InnerText);
+                }
             }
         }
     }
