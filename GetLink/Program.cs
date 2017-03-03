@@ -16,7 +16,7 @@ namespace GetLink
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new player());
+            Application.Run(new GetLink());
         }
     }
 }
