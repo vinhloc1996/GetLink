@@ -30,25 +30,27 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabVuiGhe = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btnWatch = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cbbQualities = new System.Windows.Forms.ComboBox();
+            this.btnChoose = new System.Windows.Forms.Button();
+            this.lboxEpisodes = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.txtEpisode = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnGetLink = new System.Windows.Forms.Button();
             this.txtLinksInput = new System.Windows.Forms.TextBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.lboxEpisodes = new System.Windows.Forms.ListBox();
-            this.btnChoose = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.cbbQualities = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnWatch = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnFinalEpisode = new System.Windows.Forms.Button();
+            this.btnGetAllLinks = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabVuiGhe.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -73,18 +75,77 @@
             this.tabVuiGhe.Text = "VuiGhe";
             this.tabVuiGhe.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // panel2
             // 
-            this.tabPage2.Location = new System.Drawing.Point(10, 48);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1807, 706);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.panel2.Controls.Add(this.panel3);
+            this.panel2.Controls.Add(this.btnChoose);
+            this.panel2.Controls.Add(this.lboxEpisodes);
+            this.panel2.Location = new System.Drawing.Point(6, 259);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1795, 441);
+            this.panel2.TabIndex = 12;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.btnWatch);
+            this.panel3.Controls.Add(this.label3);
+            this.panel3.Controls.Add(this.cbbQualities);
+            this.panel3.Location = new System.Drawing.Point(1290, 127);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(490, 124);
+            this.panel3.TabIndex = 13;
+            // 
+            // btnWatch
+            // 
+            this.btnWatch.Location = new System.Drawing.Point(300, 46);
+            this.btnWatch.Name = "btnWatch";
+            this.btnWatch.Size = new System.Drawing.Size(172, 59);
+            this.btnWatch.TabIndex = 2;
+            this.btnWatch.Text = "Watch";
+            this.btnWatch.UseVisualStyleBackColor = true;
+            this.btnWatch.Click += new System.EventHandler(this.btnWatch_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(17, 20);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(105, 32);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Quality";
+            // 
+            // cbbQualities
+            // 
+            this.cbbQualities.FormattingEnabled = true;
+            this.cbbQualities.Location = new System.Drawing.Point(23, 55);
+            this.cbbQualities.Name = "cbbQualities";
+            this.cbbQualities.Size = new System.Drawing.Size(261, 39);
+            this.cbbQualities.TabIndex = 0;
+            // 
+            // btnChoose
+            // 
+            this.btnChoose.Location = new System.Drawing.Point(1095, 173);
+            this.btnChoose.Name = "btnChoose";
+            this.btnChoose.Size = new System.Drawing.Size(169, 65);
+            this.btnChoose.TabIndex = 12;
+            this.btnChoose.Text = "Choose";
+            this.btnChoose.UseVisualStyleBackColor = true;
+            this.btnChoose.Click += new System.EventHandler(this.btnChoose_Click);
+            // 
+            // lboxEpisodes
+            // 
+            this.lboxEpisodes.FormattingEnabled = true;
+            this.lboxEpisodes.ItemHeight = 31;
+            this.lboxEpisodes.Location = new System.Drawing.Point(16, 14);
+            this.lboxEpisodes.Name = "lboxEpisodes";
+            this.lboxEpisodes.ScrollAlwaysVisible = true;
+            this.lboxEpisodes.Size = new System.Drawing.Size(1057, 407);
+            this.lboxEpisodes.TabIndex = 11;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnGetAllLinks);
+            this.panel1.Controls.Add(this.btnFinalEpisode);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.txtEpisode);
             this.panel1.Controls.Add(this.label1);
@@ -98,7 +159,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(912, 99);
+            this.label2.Location = new System.Drawing.Point(48, 137);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(119, 32);
             this.label2.TabIndex = 13;
@@ -106,7 +167,7 @@
             // 
             // txtEpisode
             // 
-            this.txtEpisode.Location = new System.Drawing.Point(1037, 97);
+            this.txtEpisode.Location = new System.Drawing.Point(173, 134);
             this.txtEpisode.Name = "txtEpisode";
             this.txtEpisode.Size = new System.Drawing.Size(160, 38);
             this.txtEpisode.TabIndex = 12;
@@ -114,7 +175,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(128, 100);
+            this.label1.Location = new System.Drawing.Point(99, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 32);
             this.label1.TabIndex = 11;
@@ -122,87 +183,50 @@
             // 
             // btnGetLink
             // 
-            this.btnGetLink.Location = new System.Drawing.Point(1414, 88);
+            this.btnGetLink.Location = new System.Drawing.Point(374, 123);
             this.btnGetLink.Name = "btnGetLink";
-            this.btnGetLink.Size = new System.Drawing.Size(253, 58);
+            this.btnGetLink.Size = new System.Drawing.Size(215, 58);
             this.btnGetLink.TabIndex = 10;
-            this.btnGetLink.Text = "Get Link";
+            this.btnGetLink.Text = "Get Episode";
             this.btnGetLink.UseVisualStyleBackColor = true;
             this.btnGetLink.Click += new System.EventHandler(this.btnGetLink_Click);
             // 
             // txtLinksInput
             // 
-            this.txtLinksInput.Location = new System.Drawing.Point(202, 100);
+            this.txtLinksInput.Location = new System.Drawing.Point(173, 30);
             this.txtLinksInput.Name = "txtLinksInput";
             this.txtLinksInput.Size = new System.Drawing.Size(552, 38);
             this.txtLinksInput.TabIndex = 9;
             // 
-            // panel2
+            // tabPage2
             // 
-            this.panel2.Controls.Add(this.panel3);
-            this.panel2.Controls.Add(this.btnChoose);
-            this.panel2.Controls.Add(this.lboxEpisodes);
-            this.panel2.Location = new System.Drawing.Point(6, 259);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1795, 441);
-            this.panel2.TabIndex = 12;
+            this.tabPage2.Location = new System.Drawing.Point(10, 48);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1807, 706);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // lboxEpisodes
+            // btnFinalEpisode
             // 
-            this.lboxEpisodes.FormattingEnabled = true;
-            this.lboxEpisodes.ItemHeight = 31;
-            this.lboxEpisodes.Location = new System.Drawing.Point(16, 14);
-            this.lboxEpisodes.Name = "lboxEpisodes";
-            this.lboxEpisodes.ScrollAlwaysVisible = true;
-            this.lboxEpisodes.Size = new System.Drawing.Size(1057, 407);
-            this.lboxEpisodes.TabIndex = 11;
+            this.btnFinalEpisode.Location = new System.Drawing.Point(1077, 19);
+            this.btnFinalEpisode.Name = "btnFinalEpisode";
+            this.btnFinalEpisode.Size = new System.Drawing.Size(289, 58);
+            this.btnFinalEpisode.TabIndex = 14;
+            this.btnFinalEpisode.Text = "Get Final Episode";
+            this.btnFinalEpisode.UseVisualStyleBackColor = true;
+            this.btnFinalEpisode.Click += new System.EventHandler(this.btnFinalEpisode_Click);
             // 
-            // btnChoose
+            // btnGetAllLinks
             // 
-            this.btnChoose.Location = new System.Drawing.Point(1095, 173);
-            this.btnChoose.Name = "btnChoose";
-            this.btnChoose.Size = new System.Drawing.Size(169, 65);
-            this.btnChoose.TabIndex = 12;
-            this.btnChoose.Text = "Choose";
-            this.btnChoose.UseVisualStyleBackColor = true;
-            this.btnChoose.Click += new System.EventHandler(this.btnChoose_Click);
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.btnWatch);
-            this.panel3.Controls.Add(this.label3);
-            this.panel3.Controls.Add(this.cbbQualities);
-            this.panel3.Location = new System.Drawing.Point(1290, 127);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(490, 124);
-            this.panel3.TabIndex = 13;
-            // 
-            // cbbQualities
-            // 
-            this.cbbQualities.FormattingEnabled = true;
-            this.cbbQualities.Location = new System.Drawing.Point(23, 55);
-            this.cbbQualities.Name = "cbbQualities";
-            this.cbbQualities.Size = new System.Drawing.Size(261, 39);
-            this.cbbQualities.TabIndex = 0;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 20);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(105, 32);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Quality";
-            // 
-            // btnWatch
-            // 
-            this.btnWatch.Location = new System.Drawing.Point(300, 46);
-            this.btnWatch.Name = "btnWatch";
-            this.btnWatch.Size = new System.Drawing.Size(172, 59);
-            this.btnWatch.TabIndex = 2;
-            this.btnWatch.Text = "Watch";
-            this.btnWatch.UseVisualStyleBackColor = true;
-            this.btnWatch.Click += new System.EventHandler(this.btnWatch_Click);
+            this.btnGetAllLinks.Location = new System.Drawing.Point(774, 19);
+            this.btnGetAllLinks.Name = "btnGetAllLinks";
+            this.btnGetAllLinks.Size = new System.Drawing.Size(233, 58);
+            this.btnGetAllLinks.TabIndex = 15;
+            this.btnGetAllLinks.Text = "Get All Links";
+            this.btnGetAllLinks.UseVisualStyleBackColor = true;
+            this.btnGetAllLinks.Click += new System.EventHandler(this.btnGetAllLinks_Click);
             // 
             // GetLink
             // 
@@ -217,11 +241,11 @@
             this.Text = "GetLink";
             this.tabControl1.ResumeLayout(false);
             this.tabVuiGhe.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -244,6 +268,8 @@
         private System.Windows.Forms.Button btnWatch;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cbbQualities;
+        private System.Windows.Forms.Button btnFinalEpisode;
+        private System.Windows.Forms.Button btnGetAllLinks;
     }
 }
 

@@ -32,6 +32,7 @@ namespace GetLink
                 var ep = episodeData["data"];
                 IList<JToken> results = ep.Children().ToList();
                 Episodes = new List<Episode>();
+
                 if (string.IsNullOrEmpty(episodeId))
                 {
                     foreach (JToken result in results)
@@ -64,7 +65,7 @@ namespace GetLink
             }
             catch (Exception ex)
             {
-                MessageBox.Show(@"Error: " + ex.Message + @"\nPlease contact with admin", @"Error");
+                MessageBox.Show(@"Error: " + ex.Message + "\nPlease contact with admin", @"Error");
             }
         }
 
@@ -87,7 +88,7 @@ namespace GetLink
             }
             catch (Exception ex)
             {
-                MessageBox.Show(@"Error: " + ex.Message + @"\nPlease contact with admin", @"Error");
+                MessageBox.Show(@"Error: " + ex.Message + "\nPlease contact with admin", @"Error");
             }
         }
 
@@ -95,8 +96,9 @@ namespace GetLink
         {
             try
             {
+                UriBuilder uriBuilder = new UriBuilder(url);
                 var httpClient = new HttpClient();
-                HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
+                HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, uriBuilder.Uri.ToString());
                 requestMessage.Headers.Add("X-Requested-With", "XMLHttpRequest");
                 requestMessage.Headers.Add("User-Agent",
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.74 Safari/537.36");
@@ -107,7 +109,7 @@ namespace GetLink
             }
             catch (Exception ex)
             {
-                MessageBox.Show(@"Error: " + ex.Message + @"\nPlease contact with admin", @"Error");
+                MessageBox.Show(@"Error: " + ex.Message + "\nPlease contact with admin", @"Error");
                 return null;
             }
         }
@@ -126,7 +128,7 @@ namespace GetLink
             }
             catch (Exception ex)
             {
-                MessageBox.Show(@"Error: " + ex.Message + @"\nPlease contact with admin", @"Error");
+                MessageBox.Show(@"Error: " + ex.Message + "\nPlease contact with admin", @"Error");
             }
         }
 
@@ -134,17 +136,33 @@ namespace GetLink
         {
             try
             {
-                GetMovieId(txtLinksInput.Text.Trim());
-                GetEpisodesId(txtEpisode.Text.Trim());
-                lboxEpisodes.Items.Clear();
-                for (int i = 0; i < Episodes.Count; i++)
+                string link = txtLinksInput.Text.Trim();
+                string episode = txtEpisode.Text.Trim();
+                if (link.Length > 0)
                 {
-                    lboxEpisodes.Items.Add(Episodes[i].full_name);
+                    GetMovieId(link);
+                    if (!string.IsNullOrEmpty(episode))
+                    {
+                        GetEpisodesId(episode);
+                        lboxEpisodes.Items.Clear();
+                        for (int i = 0; i < Episodes.Count; i++)
+                        {
+                            lboxEpisodes.Items.Add(Episodes[i].full_name);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show(@"Please choose specified episode");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(@"Link cannot be nulled");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(@"Error: " + ex.Message + @"\nPlease contact with admin", @"Error");
+                MessageBox.Show(@"Error: " + ex.Message + "\nPlease contact with admin", @"Error");
             }
         }
 
@@ -174,7 +192,7 @@ namespace GetLink
             }
             catch (Exception ex)
             {
-                MessageBox.Show(@"Error: " + ex.Message + @"\nPlease contact with admin", @"Error");
+                MessageBox.Show(@"Error: " + ex.Message + "\nPlease contact with admin", @"Error");
             }
         }
 
@@ -188,14 +206,63 @@ namespace GetLink
                 }
                 else
                 {
-                    var form = new player(((KeyValuePair<string, string>)cbbQualities.SelectedItem).Value);
+                    var form = new player(((KeyValuePair<string, string>) cbbQualities.SelectedItem).Value);
                     form.ShowDialog();
                     //            MessageBox.Show(((KeyValuePair<string, string>)cbbQualities.SelectedItem).Value);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(@"Error: " + ex.Message + @"\nPlease contact with admin", @"Error");
+                MessageBox.Show(@"Error: " + ex.Message + "\nPlease contact with admin", @"Error");
+            }
+        }
+
+        private void btnFinalEpisode_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string link = txtLinksInput.Text.Trim();
+                if (link.Length > 0)
+                {
+                    GetMovieId(link);
+                    GetEpisodesId(txtEpisode.Text.Trim());
+                    lboxEpisodes.Items.Clear();
+                    lboxEpisodes.Items.Add(Episodes[Episodes.Count - 1].full_name);
+                }
+                else
+                {
+                    MessageBox.Show(@"Link cannot be nulled");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(@"Error: " + ex.Message + "\nPlease contact with admin", @"Error");
+            }
+        }
+
+        private void btnGetAllLinks_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string link = txtLinksInput.Text.Trim();
+                if (link.Length > 0)
+                {
+                    GetMovieId(link);
+                    GetEpisodesId(null);
+                    lboxEpisodes.Items.Clear();
+                    for (int i = 0; i < Episodes.Count; i++)
+                    {
+                        lboxEpisodes.Items.Add(Episodes[i].full_name);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(@"Link cannot be nulled");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(@"Error: " + ex.Message + "\nPlease contact with admin", @"Error");
             }
         }
     }
