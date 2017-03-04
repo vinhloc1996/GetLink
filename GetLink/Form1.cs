@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
@@ -16,6 +17,7 @@ namespace GetLink
         private string _movieId;
         public IList<Episode> Episodes;
         public IList<EpisodeLink> EpisodeLinks;
+        private string[,] listItems;
 
         public GetLink()
         {
@@ -23,6 +25,7 @@ namespace GetLink
             MaximizeBox = false;
             lboxEpisodes.SelectionMode = SelectionMode.One;
             this.GenerateColumnsListView();
+            txtSearchBox.Focus();
         }
 
         private void GenerateColumnsListView()
@@ -30,7 +33,20 @@ namespace GetLink
             lviewResults.Columns.Add("Title", 201);
             lviewResults.Columns.Add("Episodes", 100);
             lviewResults.Columns.Add("Slug", 0);
-//            lviewResults.Columns[2].Width = 0;
+            //            lviewResults.Columns[2].Width = 0;
+        }
+
+        private void GenerateItemsListView()
+        {
+            ListViewItem item;
+            for (int i = 0; i < listItems.GetLength(0); i++)
+            {
+                item = new ListViewItem();
+                item.Text = listItems[i, 0];
+                item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = listItems[i, 1] });
+                item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = listItems[i, 2] });
+                lviewResults.Items.Add(item);
+            }
         }
 
         public void GetEpisodesId(string episodeId)
@@ -143,7 +159,7 @@ namespace GetLink
             }
         }
 
-        private void btnGetLink_Click(object sender, EventArgs e)
+        private void btnGetEpisode_Click(object sender, EventArgs e)
         {
             try
             {
@@ -154,7 +170,10 @@ namespace GetLink
                     GetMovieId(link);
                     if (!string.IsNullOrEmpty(episode))
                     {
+                        cbbQualities.Items.Clear();
                         GetEpisodesId(episode);
+                        txtEpisode.Text = "";
+                        txtEpisode.Focus();
                         lboxEpisodes.Items.Clear();
                         for (int i = 0; i < Episodes.Count; i++)
                         {
@@ -235,6 +254,7 @@ namespace GetLink
                 string link = txtLinksInput.Text.Trim();
                 if (link.Length > 0)
                 {
+                    cbbQualities.Items.Clear();
                     GetMovieId(link);
                     GetEpisodesId(txtEpisode.Text.Trim());
                     lboxEpisodes.Items.Clear();
@@ -257,7 +277,8 @@ namespace GetLink
             {
                 string link = txtLinksInput.Text.Trim();
                 if (link.Length > 0)
-                {
+                {   
+                    cbbQualities.Items.Clear();
                     GetMovieId(link);
                     GetEpisodesId(null);
                     lboxEpisodes.Items.Clear();
@@ -280,31 +301,104 @@ namespace GetLink
         private void btnSearch_Click(object sender, EventArgs e)
         {
             string keywords = txtSearchBox.Text.Trim();
-            if (keywords.Length > 0)
+            try
             {
-                string searchAddress = "http://vuighe.net/tim-kiem/" + keywords + "";
-                HtmlWeb web = new HtmlWeb();
-                HtmlDocument document = web.Load(searchAddress);
-                HtmlNode[] items = document.DocumentNode.SelectNodes("//div[@class='tray-item ']").ToArray();
-//                HtmlNode[] insideItems = items.
-                int lengthNode = items.Length;
-                HtmlNode nodeSlug;
-                HtmlNode nodeTitle;
-                HtmlNode nodeEpisodes;
-                if (lengthNode > 10)
+                if (keywords.Length > 0)
                 {
-                    lengthNode = 10;
+                    lviewResults.Items.Clear();
+                    string searchAddress = "http://vuighe.net/tim-kiem/" + keywords + "";
+                    HtmlWeb web = new HtmlWeb();
+                    HtmlDocument document = web.Load(searchAddress);
+                    HtmlNode[] items = document.DocumentNode.SelectNodes("//div[@class='tray-item ']").ToArray();
+                    int lengthNode = items.Length;
+                    HtmlNode nodeSlug;
+                    HtmlNode nodeTitle;
+                    HtmlNode nodeEpisodes;
+                    if (lengthNode > 10)
+                    {
+                        lengthNode = 10;
+                    }
+                    listItems = new string[lengthNode, 3];
+                    for (int i = 0; i < lengthNode; i++)
+                    {
+                        nodeSlug = items[i].SelectSingleNode(".//a");
+                        nodeTitle = items[i].SelectSingleNode(".//div[@class='tray-item-title']");
+                        nodeEpisodes = items[i].SelectSingleNode(".//div[@class='tray-film-update']");
+                        //                    lviewResults.Items.Add(nodeTitle.InnerText.Trim(), nodeEpisodes.InnerText.Trim(),
+                        //                        nodeSlug.Attributes["href"].Value.Trim());
+                        listItems[i, 0] = nodeTitle.InnerText.Trim();
+                        listItems[i, 1] = nodeEpisodes.InnerText.Trim();
+                        listItems[i, 2] = nodeSlug.Attributes["href"].Value.Trim();
+                        //                    MessageBox.Show("Title: " + nodeTitle.InnerText + "\nSlug " + nodeSlug.Attributes["href"].Value +
+                        //                                    "\nEpisodes: " + nodeEpisodes.InnerText);
+                    }
+                    GenerateItemsListView();
                 }
-                for (int i = 0; i < lengthNode; i++)
+                else
                 {
-                    nodeSlug = items[i].SelectSingleNode(".//a");
-                    nodeTitle = items[i].SelectSingleNode(".//div[@class='tray-item-title']");
-                    nodeEpisodes = items[i].SelectSingleNode(".//div[@class='tray-film-update']");
-                    lviewResults.Items.Add(nodeTitle.InnerText.Trim(), nodeEpisodes.InnerText.Trim(),
-                        nodeSlug.Attributes["href"].Value.Trim());
-//                    MessageBox.Show("Title: " + nodeTitle.InnerText + "\nSlug " + nodeSlug.Attributes["href"].Value +
-//                                    "\nEpisodes: " + nodeEpisodes.InnerText);
+                    MessageBox.Show(@"Please input the keywords");
                 }
+            }
+            catch (ArgumentNullException ex)
+            {
+                MessageBox.Show(@"Cannot find result with keywork '" + keywords + "'");
+//                MessageBox.Show(ex.StackTrace);
+            }
+        }
+
+        private void lviewResults_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            lboxEpisodes.Items.Clear();
+            txtLinksInput.Text = "http://vuighe.net" + lviewResults.SelectedItems[0].SubItems[2].Text;
+            txtLinksInput.Focus();
+//            MessageBox.Show(lviewResults.SelectedItems[0].SubItems[2].Text);
+        }
+
+        private void txtSearchBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                btnSearch.PerformClick();
+            }
+        }
+
+        private void txtLinksInput_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                btnGetAllLinks.PerformClick();
+            }
+        }
+
+        private void txtEpisode_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                btnGetEpisode.PerformClick();
+            }
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            int length = lboxEpisodes.Items.Count;
+            if (length > 0)
+            {
+                string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\"));
+                string links = "";
+                for (int i = 0; i < length; i++)
+                {
+                    GetEpisodeLink(Episodes[i].id);
+                    links += EpisodeLinks[0].src + "\n";
+                }
+                System.IO.File.WriteAllText(path+"links.txt", links);
+                MessageBox.Show(@"Write file successful!");
+                txtLinksInput.Text = "";
+                txtSearchBox.Focus();
+                lboxEpisodes.Items.Clear();
+            }
+            else
+            {
+                MessageBox.Show(@"Get some episode before export links");
             }
         }
     }

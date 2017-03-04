@@ -30,6 +30,11 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabVuiGhe = new System.Windows.Forms.TabPage();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lviewResults = new System.Windows.Forms.ListView();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.txtSearchBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnWatch = new System.Windows.Forms.Button();
@@ -43,20 +48,16 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtEpisode = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnGetLink = new System.Windows.Forms.Button();
+            this.btnGetEpisode = new System.Windows.Forms.Button();
             this.txtLinksInput = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtSearchBox = new System.Windows.Forms.TextBox();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.lviewResults = new System.Windows.Forms.ListView();
+            this.btnExport = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabVuiGhe.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -82,8 +83,64 @@
             this.tabVuiGhe.Text = "VuiGhe";
             this.tabVuiGhe.UseVisualStyleBackColor = true;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.lviewResults);
+            this.panel4.Controls.Add(this.btnSearch);
+            this.panel4.Controls.Add(this.txtSearchBox);
+            this.panel4.Controls.Add(this.label4);
+            this.panel4.Location = new System.Drawing.Point(955, 7);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(836, 693);
+            this.panel4.TabIndex = 13;
+            // 
+            // lviewResults
+            // 
+            this.lviewResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lviewResults.FullRowSelect = true;
+            this.lviewResults.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lviewResults.Location = new System.Drawing.Point(15, 98);
+            this.lviewResults.MultiSelect = false;
+            this.lviewResults.Name = "lviewResults";
+            this.lviewResults.Size = new System.Drawing.Size(796, 355);
+            this.lviewResults.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.lviewResults.TabIndex = 4;
+            this.lviewResults.UseCompatibleStateImageBehavior = false;
+            this.lviewResults.View = System.Windows.Forms.View.Details;
+            this.lviewResults.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lviewResults_MouseDoubleClick);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(433, 20);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(196, 61);
+            this.btnSearch.TabIndex = 2;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // txtSearchBox
+            // 
+            this.txtSearchBox.Location = new System.Drawing.Point(130, 32);
+            this.txtSearchBox.Name = "txtSearchBox";
+            this.txtSearchBox.Size = new System.Drawing.Size(267, 38);
+            this.txtSearchBox.TabIndex = 1;
+            this.txtSearchBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSearchBox_KeyPress);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(19, 32);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(105, 32);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Search";
+            // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnExport);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.btnChoose);
             this.panel2.Controls.Add(this.lboxEpisodes);
@@ -97,16 +154,16 @@
             this.panel3.Controls.Add(this.btnWatch);
             this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.cbbQualities);
-            this.panel3.Location = new System.Drawing.Point(410, 321);
+            this.panel3.Location = new System.Drawing.Point(203, 320);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(490, 124);
             this.panel3.TabIndex = 13;
             // 
             // btnWatch
             // 
-            this.btnWatch.Location = new System.Drawing.Point(300, 46);
+            this.btnWatch.Location = new System.Drawing.Point(300, 41);
             this.btnWatch.Name = "btnWatch";
-            this.btnWatch.Size = new System.Drawing.Size(172, 59);
+            this.btnWatch.Size = new System.Drawing.Size(172, 64);
             this.btnWatch.TabIndex = 2;
             this.btnWatch.Text = "Watch";
             this.btnWatch.UseVisualStyleBackColor = true;
@@ -131,7 +188,7 @@
             // 
             // btnChoose
             // 
-            this.btnChoose.Location = new System.Drawing.Point(197, 361);
+            this.btnChoose.Location = new System.Drawing.Point(16, 361);
             this.btnChoose.Name = "btnChoose";
             this.btnChoose.Size = new System.Drawing.Size(169, 65);
             this.btnChoose.TabIndex = 12;
@@ -156,7 +213,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.txtEpisode);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.btnGetLink);
+            this.panel1.Controls.Add(this.btnGetEpisode);
             this.panel1.Controls.Add(this.txtLinksInput);
             this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
@@ -198,6 +255,7 @@
             this.txtEpisode.Name = "txtEpisode";
             this.txtEpisode.Size = new System.Drawing.Size(160, 38);
             this.txtEpisode.TabIndex = 12;
+            this.txtEpisode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEpisode_KeyPress);
             // 
             // label1
             // 
@@ -208,15 +266,15 @@
             this.label1.TabIndex = 11;
             this.label1.Text = "Link";
             // 
-            // btnGetLink
+            // btnGetEpisode
             // 
-            this.btnGetLink.Location = new System.Drawing.Point(318, 123);
-            this.btnGetLink.Name = "btnGetLink";
-            this.btnGetLink.Size = new System.Drawing.Size(215, 58);
-            this.btnGetLink.TabIndex = 10;
-            this.btnGetLink.Text = "Get Episode";
-            this.btnGetLink.UseVisualStyleBackColor = true;
-            this.btnGetLink.Click += new System.EventHandler(this.btnGetLink_Click);
+            this.btnGetEpisode.Location = new System.Drawing.Point(318, 123);
+            this.btnGetEpisode.Name = "btnGetEpisode";
+            this.btnGetEpisode.Size = new System.Drawing.Size(215, 58);
+            this.btnGetEpisode.TabIndex = 10;
+            this.btnGetEpisode.Text = "Get Episode";
+            this.btnGetEpisode.UseVisualStyleBackColor = true;
+            this.btnGetEpisode.Click += new System.EventHandler(this.btnGetEpisode_Click);
             // 
             // txtLinksInput
             // 
@@ -224,6 +282,7 @@
             this.txtLinksInput.Name = "txtLinksInput";
             this.txtLinksInput.Size = new System.Drawing.Size(552, 38);
             this.txtLinksInput.TabIndex = 9;
+            this.txtLinksInput.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtLinksInput_KeyPress);
             // 
             // tabPage2
             // 
@@ -235,58 +294,15 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // panel4
+            // btnExport
             // 
-            this.panel4.Controls.Add(this.lviewResults);
-            this.panel4.Controls.Add(this.btnSearch);
-            this.panel4.Controls.Add(this.txtSearchBox);
-            this.panel4.Controls.Add(this.label4);
-            this.panel4.Location = new System.Drawing.Point(955, 7);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(836, 693);
-            this.panel4.TabIndex = 13;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(19, 32);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(105, 32);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Search";
-            // 
-            // txtSearchBox
-            // 
-            this.txtSearchBox.Location = new System.Drawing.Point(130, 32);
-            this.txtSearchBox.Name = "txtSearchBox";
-            this.txtSearchBox.Size = new System.Drawing.Size(267, 38);
-            this.txtSearchBox.TabIndex = 1;
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Location = new System.Drawing.Point(433, 20);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(196, 61);
-            this.btnSearch.TabIndex = 2;
-            this.btnSearch.Text = "Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // lviewResults
-            // 
-            this.lviewResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lviewResults.FullRowSelect = true;
-            this.lviewResults.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lviewResults.Location = new System.Drawing.Point(15, 98);
-            this.lviewResults.MultiSelect = false;
-            this.lviewResults.Name = "lviewResults";
-            this.lviewResults.Size = new System.Drawing.Size(796, 355);
-            this.lviewResults.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.lviewResults.TabIndex = 4;
-            this.lviewResults.UseCompatibleStateImageBehavior = false;
-            this.lviewResults.View = System.Windows.Forms.View.Details;
+            this.btnExport.Location = new System.Drawing.Point(699, 362);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(198, 64);
+            this.btnExport.TabIndex = 14;
+            this.btnExport.Text = "Export Links";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // GetLink
             // 
@@ -301,13 +317,13 @@
             this.Text = "GetLink";
             this.tabControl1.ResumeLayout(false);
             this.tabVuiGhe.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -322,7 +338,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtEpisode;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnGetLink;
+        private System.Windows.Forms.Button btnGetEpisode;
         private System.Windows.Forms.TextBox txtLinksInput;
         private System.Windows.Forms.Button btnChoose;
         private System.Windows.Forms.ListBox lboxEpisodes;
@@ -337,6 +353,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.ListView lviewResults;
+        private System.Windows.Forms.Button btnExport;
     }
 }
 

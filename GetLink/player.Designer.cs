@@ -54,6 +54,7 @@
             this.Name = "player";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "player";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.player_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.wmp)).EndInit();
             this.ResumeLayout(false);
 

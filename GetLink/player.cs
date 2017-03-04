@@ -18,5 +18,10 @@ namespace GetLink
 
             wmp.URL = @url;
         }
+
+        private void player_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            wmp.close();
+        }
     }
 }
