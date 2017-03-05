@@ -17,14 +17,14 @@ namespace GetLink
         private string _movieId;
         public IList<Episode> Episodes;
         public IList<EpisodeLink> EpisodeLinks;
-        private string[,] listItems;
+        private string[,] _listItems;
 
         public GetLink()
         {
             InitializeComponent();
             MaximizeBox = false;
             lboxEpisodes.SelectionMode = SelectionMode.One;
-            this.GenerateColumnsListView();
+            GenerateColumnsListView();
             txtSearchBox.Focus();
         }
 
@@ -39,12 +39,12 @@ namespace GetLink
         private void GenerateItemsListView()
         {
             ListViewItem item;
-            for (int i = 0; i < listItems.GetLength(0); i++)
+            for (int i = 0; i < _listItems.GetLength(0); i++)
             {
                 item = new ListViewItem();
-                item.Text = listItems[i, 0];
-                item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = listItems[i, 1] });
-                item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = listItems[i, 2] });
+                item.Text = _listItems[i, 0];
+                item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = _listItems[i, 1] });
+                item.SubItems.Add(new ListViewItem.ListViewSubItem() { Text = _listItems[i, 2] });
                 lviewResults.Items.Add(item);
             }
         }
@@ -170,6 +170,7 @@ namespace GetLink
                     GetMovieId(link);
                     if (!string.IsNullOrEmpty(episode))
                     {
+                        cbbQualities.DataSource = null;
                         cbbQualities.Items.Clear();
                         GetEpisodesId(episode);
                         txtEpisode.Text = "";
@@ -254,6 +255,7 @@ namespace GetLink
                 string link = txtLinksInput.Text.Trim();
                 if (link.Length > 0)
                 {
+                    cbbQualities.DataSource = null;
                     cbbQualities.Items.Clear();
                     GetMovieId(link);
                     GetEpisodesId(txtEpisode.Text.Trim());
@@ -277,7 +279,8 @@ namespace GetLink
             {
                 string link = txtLinksInput.Text.Trim();
                 if (link.Length > 0)
-                {   
+                {
+                    cbbQualities.DataSource = null;
                     cbbQualities.Items.Clear();
                     GetMovieId(link);
                     GetEpisodesId(null);
@@ -318,7 +321,7 @@ namespace GetLink
                     {
                         lengthNode = 10;
                     }
-                    listItems = new string[lengthNode, 3];
+                    _listItems = new string[lengthNode, 3];
                     for (int i = 0; i < lengthNode; i++)
                     {
                         nodeSlug = items[i].SelectSingleNode(".//a");
@@ -326,9 +329,9 @@ namespace GetLink
                         nodeEpisodes = items[i].SelectSingleNode(".//div[@class='tray-film-update']");
                         //                    lviewResults.Items.Add(nodeTitle.InnerText.Trim(), nodeEpisodes.InnerText.Trim(),
                         //                        nodeSlug.Attributes["href"].Value.Trim());
-                        listItems[i, 0] = nodeTitle.InnerText.Trim();
-                        listItems[i, 1] = nodeEpisodes.InnerText.Trim();
-                        listItems[i, 2] = nodeSlug.Attributes["href"].Value.Trim();
+                        _listItems[i, 0] = nodeTitle.InnerText.Trim();
+                        _listItems[i, 1] = nodeEpisodes.InnerText.Trim();
+                        _listItems[i, 2] = nodeSlug.Attributes["href"].Value.Trim();
                         //                    MessageBox.Show("Title: " + nodeTitle.InnerText + "\nSlug " + nodeSlug.Attributes["href"].Value +
                         //                                    "\nEpisodes: " + nodeEpisodes.InnerText);
                     }
@@ -349,7 +352,7 @@ namespace GetLink
         private void lviewResults_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             lboxEpisodes.Items.Clear();
-            txtLinksInput.Text = "http://vuighe.net" + lviewResults.SelectedItems[0].SubItems[2].Text;
+            txtLinksInput.Text = @"http://vuighe.net" + lviewResults.SelectedItems[0].SubItems[2].Text;
             txtLinksInput.Focus();
 //            MessageBox.Show(lviewResults.SelectedItems[0].SubItems[2].Text);
         }
@@ -390,7 +393,7 @@ namespace GetLink
                     GetEpisodeLink(Episodes[i].id);
                     links += EpisodeLinks[0].src + "\n";
                 }
-                System.IO.File.WriteAllText(path+"links.txt", links);
+                File.WriteAllText(path+"links.txt", links);
                 MessageBox.Show(@"Write file successful!");
                 txtLinksInput.Text = "";
                 txtSearchBox.Focus();
