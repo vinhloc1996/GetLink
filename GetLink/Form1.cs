@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -391,7 +392,7 @@ namespace GetLink
                 for (int i = 0; i < length; i++)
                 {
                     GetEpisodeLink(Episodes[i].id);
-                    links += EpisodeLinks[0].src + "\n";
+                    links += GetPage(EpisodeLinks[0].src) + "\n";
                 }
                 File.WriteAllText(path+"links.txt", links);
                 MessageBox.Show(@"Write file successful!");
@@ -402,6 +403,22 @@ namespace GetLink
             else
             {
                 MessageBox.Show(@"Get some episode before export links");
+            }
+        }
+
+        public string GetPage(String url)
+        {
+            try
+            {
+                HttpWebRequest httpRequest = (HttpWebRequest) WebRequest.Create(url);
+                httpRequest.AllowAutoRedirect = false;
+                HttpWebResponse response = (HttpWebResponse) httpRequest.GetResponse();
+                return response.Headers["location"];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(@"Error: " + ex.Message + "\nPlease contact with admin", @"Error");
+                return null;
             }
         }
     }
