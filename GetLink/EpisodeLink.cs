@@ -8,19 +8,19 @@ namespace GetLink
 {
     public class EpisodeLink
     {
-        public string id
+//        public string id
+//        {
+//            get; set;
+//        }
+        public string Src
         {
             get; set;
         }
-        public string src
+        public string Type
         {
             get; set;
         }
-        public string type
-        {
-            get; set;
-        }
-        public string quality
+        public string Quality
         {
             get; set;
         }

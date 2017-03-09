@@ -62,6 +62,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GibberishAES.cs" />
+    <Compile Include="locnguyen\Movie.cs" />
+    <Compile Include="locnguyen\PhimMoi.cs" />
+    <Compile Include="locnguyen\Scraper.cs" />
+    <Compile Include="locnguyen\VuiGhe.cs" />
     <Compile Include="player.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,5 +125,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
